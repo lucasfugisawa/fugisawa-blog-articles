@@ -93,7 +93,7 @@ try {
     println(e.message)
 }
 ```
-***Using Custom Setter Logic for Property Validation:***
+#### Using Custom Setter Logic for Property Validation:
 ```kotlin
 class Car(make: String = "N/A", model: String = "N/A", year: Int?) {
     var make: String = make
@@ -111,6 +111,25 @@ class Car(make: String = "N/A", model: String = "N/A", year: Int?) {
 // Usage
 val car = Car(make = "Honda", model = "Civic")
 car.model = "   " // This will throw an IllegalArgumentException
+```
+
+#### Setting Object Properties After Instantiation with Kotlin's `apply`
+
+In some cases, you may want to create an object first and then set its properties later. Kotlin provides a concise and expressive way to achieve this using the `apply` function. The `apply` function allows you to execute a block of code on an object and then return the object itself. This is especially useful when you want to set multiple properties of an object after it has been created.
+
+Let's adapt our `Car` example to demonstrate this approach:
+
+```kotlin
+data class Car(var make: String = "N/A", var model: String = "N/A", var year: Int? = null)
+
+// Create a car object without setting properties initially
+val car = Car().apply {
+    make = "Honda"
+    year = 2023
+}
+
+// And, of course, you can always do it the traditional way:
+car.model = "Civic"
 ```
 
 **Kotlin's features simplifying Builder Pattern:**
