@@ -6,7 +6,7 @@ So, instead of instantiating new objects, you can have a prototype from which cl
 
 ## Traditional Approach in Java:
 
-In this Java example, `GraphicElement` represents a complex graphic element with complex initialization logic here, such as loading textures, calculating geometry, etc.:
+In this Java example, `GraphicElement` represents a complex graphic element with complex initialization logic, such as loading textures, calculating geometry, etc.:
 
 ```java
 interface PrototypeCapable extends Cloneable {  
@@ -47,20 +47,20 @@ Kotlin allows for an efficient and concise way to implement cloning of complex o
 
 ```kotlin
 data class GraphicElement(  
-  val color: String,  
+    val color: String,  
     val points: List<String>,  
     val texture: String,  
 ) {  
-  init {  
-  // Some complex initialization logic here (loading textures, calculating geometry, etc.)    
- }  
+    init {  
+        // Some complex initialization logic here (loading textures, calculating geometry, etc.)    
+    }  
 }  
   
 fun main() {  
-  val initialPoints = listOf("x1", "y1", "x2", "y2")  
-  val originalElement = GraphicElement("Red", initialPoints, "BrickTexture")  
-  val clonedElement = originalElement.copy(color = "Blue") // Modifying color while cloning  
-  println("Cloned Element Color: ${clonedElement.color}") // Output: Blue  
+    val initialPoints = listOf("x1", "y1", "x2", "y2")  
+    val originalElement = GraphicElement("Red", initialPoints, "BrickTexture")  
+    val clonedElement = originalElement.copy(color = "Blue") // Modifying color while cloning  
+    println("Cloned Element Color: ${clonedElement.color}") // Output: Blue  
 }
 ```
 In this Kotlin example, `GraphicElement` is a data class used for creating complex graphic elements. The `copy` method simplifies the process of cloning and modifying these elements.
