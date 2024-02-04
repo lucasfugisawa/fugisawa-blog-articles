@@ -2,7 +2,7 @@
 
 The Builder pattern is a design pattern used to construct complex objects step by step. It separates the construction of an object from its representation, allowing the same construction process to create different types.
 
-When creating complex objects, direct construction using constructors might involve many parameters, leading to unclear code and difficult error handling. Also, in languages that does not have features like named parameters and default values constgruction through constructors or factory methods leads to lots of overloading.
+When creating complex objects, direct construction using constructors might involve many parameters, leading to unclear code and difficult error handling. Also, in languages that does not have features like named parameters and default values, construction through constructors or factory methods leads to lots of overloading.
 
 The Builder pattern solves this by providing a clear, step-by-step approach to object construction. It uses a separate builder class to construct the object. The builder class has methods to set the object's parameters and a method to finalize the construction process.
 
