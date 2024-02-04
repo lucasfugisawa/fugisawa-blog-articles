@@ -10,7 +10,7 @@ In this Java example, `GraphicElement` represents a complex graphic element with
 
 ```java
 interface PrototypeCapable extends Cloneable {  
-  PrototypeCapable clone() throws CloneNotSupportedException;  
+    PrototypeCapable clone() throws CloneNotSupportedException;  
 }  
   
 class GraphicElement implements PrototypeCapable {  
