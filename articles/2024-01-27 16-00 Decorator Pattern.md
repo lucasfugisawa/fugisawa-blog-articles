@@ -148,7 +148,7 @@ In Kotlin, the `UsernameValidator` class uses class delegation (`by repository`)
 
 ### Kotlin Features Simplifying the Decorator Pattern
 
-1.  **Class Delegation:** Kotlin simplifies the Decorator Pattern by allowing delegation of the interface's implementation to another object. This removes the need for explicit forwarding of method calls.
+1.  **Class Delegation:** Kotlin simplifies the Decorator Pattern by allowing delegation of the interface's implementation to another object. This removes the need for explicit forwarding of undecorated methods calls.
 
 ## Final Thougths
 In Kotlin, the Decorator Pattern is simplified through features like class delegation, enhancing readability and reducing boilerplate code. Understanding these features allows Kotlin developers to implement design patterns in a more efficient and effective manner.
