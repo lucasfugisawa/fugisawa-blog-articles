@@ -58,7 +58,7 @@ public class Car {
 
     public Car(String make, String model, int year) { /* Set member fields. */ }
     public Car(String make, String model) { /* Set member fields. */ }
-    public Car(String model, int year) { this(make,  }
+    public Car(String model, int year) { /* Set member fields. */ }
 	public Car(String make) { /* Set member fields. */ }
     public Car(int year) { /* Set member fields. */ }
 }
