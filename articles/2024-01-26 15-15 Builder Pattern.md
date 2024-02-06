@@ -48,7 +48,7 @@ Car car2 = new Car.Builder()
         .build();
 ```
 
-This patterns replaces the need for multiple constructors, like in this example below, and allow for more readable and expressive attribute setting.
+This pattern replaces the need for multiple constructors, like in this example below, and allows for more readable and expressive attribute setting.
 ```java
 public class Car {
     private final String make;
