@@ -1,6 +1,6 @@
 # Kotlin Design Patterns: Simplifying the Prototype Pattern
 
-We use the Prototype Pattern in when creating new instances from scratch is more expensive than copying existing ones.
+We use the Prototype Pattern when creating new instances from scratch is more expensive than copying existing ones.
 
 So, instead of instantiating new objects, you can have a prototype from which clones / copies are made.
 
