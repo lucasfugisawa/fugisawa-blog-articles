@@ -26,9 +26,9 @@ class GraphicElement implements PrototypeCapable {
         if (this.texture == null) {
             this.texture = "Some complex initialization logic here (loading textures, calculating geometry, etc.)";
         }
-}  
+    }  
   
-  @Override  
+    @Override  
     public GraphicElement clone() throws CloneNotSupportedException {  
         return (GraphicElement) super.clone();  
     }  
