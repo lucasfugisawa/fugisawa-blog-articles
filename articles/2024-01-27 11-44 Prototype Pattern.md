@@ -1,16 +1,16 @@
 # Kotlin Design Patterns: Simplifying the Prototype Pattern
 
-We use the Prototype Pattern in when creating new instances from scratch is more expensive than copying existing ones.
+We use the Prototype Pattern when creating new instances from scratch is more expensive than copying existing ones.
 
 So, instead of instantiating new objects, you can have a prototype from which clones / copies are made.
 
 ## Traditional Approach in Java:
 
-In this Java example, `GraphicElement` represents a complex graphic element with complex initialization logic here, such as loading textures, calculating geometry, etc.:
+In this Java example, `GraphicElement` represents a complex graphic element with complex initialization logic, such as loading textures, calculating geometry, etc.:
 
 ```java
 interface PrototypeCapable extends Cloneable {  
-  PrototypeCapable clone() throws CloneNotSupportedException;  
+    PrototypeCapable clone() throws CloneNotSupportedException;  
 }  
   
 class GraphicElement implements PrototypeCapable {  
@@ -21,7 +21,7 @@ class GraphicElement implements PrototypeCapable {
   
     public GraphicElement(String color, List<String> points, String texture) {  
         this.color = color;  
-        this.points = new ArrayList<>(points);
+        this.points = points;
         this.texture = texture;
         if (this.texture == null) {
             this.texture = "Some complex initialization logic here (loading textures, calculating geometry, etc.)";
