@@ -21,10 +21,12 @@ class GraphicElement implements PrototypeCapable {
   
     public GraphicElement(String color, List<String> points, String texture) {  
         this.color = color;  
-        this.points = new ArrayList<>(points);  
-        this.texture = texture;  
-        // Some complex initialization logic here (loading textures, calculating geometry, etc.)  
-  }  
+        this.points = new ArrayList<>(points);
+        this.texture = texture;
+        if (this.texture == null) {
+            this.texture = "Some complex initialization logic here (loading textures, calculating geometry, etc.)";
+        }
+}  
   
   @Override  
     public GraphicElement clone() throws CloneNotSupportedException {  
@@ -46,25 +48,25 @@ In this example, you can see cloning is used to create a new element `clonedElem
 Kotlin allows for an efficient and concise way to implement cloning of complex objects.
 
 ```kotlin
-data class GraphicElement(  
-  val color: String,  
-    val points: List<String>,  
-    val texture: String,  
-) {  
-  init {  
-  // Some complex initialization logic here (loading textures, calculating geometry, etc.)    
- }  
-}  
-  
-fun main() {  
-  val initialPoints = listOf("x1", "y1", "x2", "y2")  
-  val originalElement = GraphicElement("Red", initialPoints, "BrickTexture")  
-  val clonedElement = originalElement.copy(color = "Blue") // Modifying color while cloning  
-  println("Cloned Element Color: ${clonedElement.color}") // Output: Blue  
+data class GraphicElement(
+    val color: String,
+    val points: List<String>,
+    var texture: String? = null,
+) {
+    init {
+        if (texture == null) {
+            texture = "Some complex initialization logic here (loading textures, calculating geometry, etc.)"
+        }
+    }
 }
+
+// Usage:
+val initialPoints = listOf("x1", "y1", "x2", "y2")
+val originalElement = GraphicElement("Red", initialPoints)
+val clonedElement = originalElement.copy(color = "Blue") // Modifying color while cloning
 ```
 In this Kotlin example, `GraphicElement` is a data class used for creating complex graphic elements. The `copy` method simplifies the process of cloning and modifying these elements.
-Noticed that the `color` for the `clonedElement` can be set / changed earlier, while copying the `originalElement`.
+Notice that the `color` for the `clonedElement` can be set / changed earlier, while copying the `originalElement`.
 
 
 ### Kotlin Features Simplifying the Prototype Pattern
