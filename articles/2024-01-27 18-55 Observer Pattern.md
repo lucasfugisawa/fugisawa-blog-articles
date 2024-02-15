@@ -74,7 +74,7 @@ public class WeatherApp {
     }
 }
 ```
-In this **Java** example, `WeatherStation` is the subject, and `Display` is an observer that updates when the temperature changes. Both displays `display1` and `display2` are notified (`update(float temperature)`) then the station temperature changes.
+In this **Java** example, `WeatherStation` is the subject, and `Display` is an observer that updates when the temperature changes. Both displays `display1` and `display2` are notified (`update(float temperature)`) when the station temperature changes.
 
 ### Functional approach in Java 8+
 You can use **Java 8+** functional features to simplify the Observer pattern and achive a very similar approach using functional interfaces and Java's lambda expressions.
@@ -116,13 +116,13 @@ station.setTemperature(30f);
 In this **Java** example:
 
 -   The `WeatherStation` class maintains a list of `Consumer<Float>` objects, which are functional interfaces in Java that can be used with lambda expressions.
--   The `onTemperatureChange` method allows registering lambda expressions that will be called when the temperature changes.
--   When `setTemperature` is called, it triggers `notifyTemperatureChange`, which in turn executes all registered lambda expressions with the new temperature.
+-   The `onTemperatureChange` method allows registering `Consumer` lambda expressions that will be called when the temperature changes.
+-   When `setTemperature` is called, it triggers `notifyTemperatureChange`, which executes all registered lambda expressions with the new temperature.
 
 ## Kotlin's Approach:
 **Kotlin** provides observer delegates feature. `Delegates.observable()` simplifies the observer pattern implementation for objects properties changes:
 
-You can combine observer delegates and functional features to observe property changes and higher-order functions to register callbacks.
+You can combine observer delegates to observe property changes and higher-order functions to register callbacks.
 ```kotlin
 import kotlin.properties.Delegates
 

@@ -1,6 +1,6 @@
 # Kotlin Design Patterns: Using Cool Features To Simplify Other Design Patterns
 
-In the previous articles, we've seen cases where Kotlin's features can profoundly alter traditional design patterns.
+In the previous chapters, we’ve seen cases where Kotlin’s features can profoundly alter traditional design patterns to a simpler, more concise and expressive solution.
 
 In this final article of the series, we'll explore how Kotlin's capabilities can help simplify other patterns. The changes and impact shown here are smaller than those previously shown. But using those features can really help declutter patterns implementation and make them less complex, more readable and mantainable.
 
