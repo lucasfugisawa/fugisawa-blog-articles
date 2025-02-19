@@ -186,6 +186,8 @@ You don't need extra builder methods. You can skip arguments you don't need, tha
 
 ### 3. DSL (type-safe builder)
 
+### 3. DSL (type-safe builder)
+
 When your object or configuration gets deeper, you might want a more expressive way to nest properties. DSLs allow you to build objects within code blocks, making them easy to read or extend.
 
 ```kotlin
@@ -200,7 +202,55 @@ val carWithDSL = car {
 }
 ```
 
-Each block runs with the appropriate builder scope. You don't repeat object names, and you can nest DSL calls for related objects like `LocalDate`.
+Each block runs with the appropriate builder scope. You don’t repeat object names, and you can nest DSL calls for related objects like `LocalDate`.
+
+When your object or configuration becomes more complex, you might want a more expressive way to nest properties. DSLs let you build objects in code blocks, making them easier to read and extend. Each block runs in the correct builder scope. You don’t repeat object names, and you can nest DSL calls for related objects like `LocalDate`. You also gain extra flexibility because a DSL block is actual Kotlin code. That means you can do more than simple assignments. For example, you can perform validations, logging, or other conditional logic inside the builder:
+
+```kotlin
+// Suppose you have a function that fetches or reads car data from some file.
+// This can be a placeholder for actual file IO and parsing.
+// For example, you might parse JSON into a CarData object.
+fun loadCarData(path: String): CarData = CarData(
+    make = "Nissan",
+    model = "Leaf",
+    isElectric = true,
+)
+
+// A simple data class to represent the loaded car data.
+data class CarData(
+    val make: String,
+    val model: String,
+    val isElectric: Boolean,
+)
+
+// DSL-based creation of a Car with integrated IO/data loading.
+val carWithDSL = car {
+    println("Starting the car creation process...")
+
+    val config = loadCarData("car_config.json")
+
+    make = config.make
+    model = config.model
+
+    if (config.isElectric) {
+        announcementDate = localDate {
+            year = 2025
+            month = 3
+            day = 1
+        }
+    } else {
+        announcementDate = localDate {
+            year = 2025
+            month = 3
+            day = 31
+        }
+    }
+
+    require(model.isNotBlank()) { "Model must not be blank." }
+
+    println("Car creation block finished. Building the Car object now.")
+}
+```
 
 ## Kotlin's features enabling DSLs / type-safe builders
 
