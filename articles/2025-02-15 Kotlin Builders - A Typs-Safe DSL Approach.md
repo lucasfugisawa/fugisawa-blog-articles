@@ -186,8 +186,6 @@ You don't need extra builder methods. You can skip arguments you don't need, tha
 
 ### 3. DSL (type-safe builder)
 
-### 3. DSL (type-safe builder)
-
 When your object or configuration gets deeper, you might want a more expressive way to nest properties. DSLs allow you to build objects within code blocks, making them easy to read or extend.
 
 ```kotlin
