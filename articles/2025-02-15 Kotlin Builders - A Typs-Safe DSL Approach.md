@@ -30,7 +30,7 @@ fun main() {
 }
 ```
 
-Inside `usePrinter { ... }`, you call `show()` directly. That's because the block is defined as `Printer.() -> Unit`, so it behaves like a method on `Printer`. We'll use this idea to write our DSL for building objects.
+Inside `usePrinter { ... }`, you call `show()` directly. That's because the block is defined as `Printer.() -> Unit`, so it behaves like a method on `Printer`. More precisely, it represents an *extension function type*. We'll use this idea to write our DSL for building objects.
 
 ## Building on data classes with a type-safe builder
 
