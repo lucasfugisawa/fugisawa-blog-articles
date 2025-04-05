@@ -319,6 +319,28 @@ This article was originally posted to my Lucas Fugisawa on Kotlin blog, at: http
 
 In each of these scenarios, DSLs help you avoid confusion when building complex structures.
 
+## A word of caution: nested builders and receiver conflicts
+
+As your DSL grows and starts to nest deeper, you might run into a subtle issue known as receiver conflict. In Kotlin, when you define multiple builder blocks, each with its own receiver (like `car { ... }` and `localDate { ... }`), the compiler allows access to all visible receivers. That can be dangerous.
+
+    ```kotlin
+    val car = car {
+        make = "Honda"
+        model = "Civic"
+        announcementDate = localDate {
+            year = 2025
+            month = 2
+            day = 15
+
+            // Oops — this is from the outer CarBuilder, not LocalDateBuilder!
+            make = "This will, but maybe shouldn't compile..."
+        }
+    }
+    ```
+
+Since both builders are in scope, `make = ...` refers to the outer `CarBuilder`, not the inner `LocalDateBuilder`. This can lead to surprising bugs and unintended assignments.
+
+Thankfully, Kotlin provides a solution to isolate DSL scopes and prevent this kind of issue. In the next article, we'll dive into Kotlin's `@DslMarker` feature, what it is, why it exists, and how to use it effectively to keep your DSLs clean, safe, and predictable.
 
 ## Final thoughts
 
