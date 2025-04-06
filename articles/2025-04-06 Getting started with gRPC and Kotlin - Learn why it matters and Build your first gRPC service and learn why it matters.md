@@ -78,7 +78,7 @@ The source code for the scope of each article will be made available in individu
 
 The speific branch for this article is [article1-first-service](https://github.com/lucasfugisawa/note-service-kotlin-gprc/tree/article1-first-service).
 
-## Writing your first `.proto` file
+## Step 1: Writing your first `.proto` file
 
 Let's define the initial structure of our Note Service using Protocol Buffers. This file describes the types and service methods that gRPC will generate for us.
 
@@ -171,7 +171,7 @@ Each field in a Protobuf message has a **unique number**. These numbers are used
 
 Protobuf tags must be between 1 and (2<sup>29</sup> - 1), but you should use 1–15 for frequently-used fields, since they encode more efficiently.
 
-## Generating Kotlin code from Protobuf definitions
+## Step 2: Generating Kotlin code from Protobuf definitions
 
 The next step is to generate Kotlin code from our `.proto` file. There are two main ways to do this:
 
@@ -243,7 +243,7 @@ protoc
 ```
 You'll need the `protoc` binary and the `protoc-gen-grpc-kotlin` plugin [installed](https://protobuf.dev/installation/) on your system.
 
-## Implementing the gRPC Server
+## Step 3: Implementing the gRPC Server
 
 Now that we have the Kotlin stub code generated, the next step is to write the backend logic that will handle incoming gRPC calls. This is where we implement the `NoteService`.
 ```kotlin
@@ -292,7 +292,7 @@ fun main() {
 ```
 That's all we need to get a Kotlin gRPC server running.
 
-## Creating a gRPC Client in Kotlin
+## Step 4: Creating a gRPC Client in Kotlin
 
 Now, let's now write a client that connects to the server and sends a `CreateNote` request.
 
