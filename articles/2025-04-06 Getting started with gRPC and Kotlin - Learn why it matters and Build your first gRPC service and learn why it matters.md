@@ -89,7 +89,9 @@ syntax = "proto3";
 
 package com.fugisawa.grpc.noteservice;
 
-option java_package = "com.fugisawa.grpc.noteservice"; option java_multiple_files = true;
+option java_package = "com.fugisawa.grpc.noteservice";
+
+option java_multiple_files = true;
 
 service NoteService { 
 	rpc CreateNote (CreateNoteRequest) returns (Note); 
@@ -121,10 +123,10 @@ This is the **Protobuf package name**. It groups related messages and services u
 
 These are used by the code generator for JVM languages (like Kotlin or Java):
 
--   `java_package = "com.fugisawa.noteservice"`: sets the package name in the generated Kotlin/Java code.
+- `java_package = "com.fugisawa.noteservice"`: sets the package name in the generated Kotlin/Java code.
     
--   `java_multiple_files = true`: instead of placing all generated types into a single file, this generates one file per message/service, which is cleaner and more modular.
-- 
+- `java_multiple_files = true`: instead of placing all generated types into a single file, this generates one file per message/service, which is cleaner and more modular.
+
 ### The `service` block
 
 This defines the **gRPC service** and its RPC methods. In our case...
