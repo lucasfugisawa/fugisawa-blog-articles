@@ -133,7 +133,7 @@ This defines the **gRPC service** and its RPC methods. In our case...
 
 ```protobuf
 service NoteService {
-  rpc CreateNote (CreateNoteRequest) returns (Note);
+    rpc CreateNote (CreateNoteRequest) returns (Note);
 }
 ```
 ... defines a service named `NoteService` with one RPC method `CreateNote`, which accepts a message of type `CreateNoteRequest` and returns a `Note`.
@@ -145,8 +145,8 @@ gRPC will generate both a base server class and a client stub for us, based on t
 These define structured data for the request and response types.
 ```protobuf
 message CreateNoteRequest {
-  string title = 1;
-  string content = 2;
+    string title = 1;
+    string content = 2;
 }
 ```
 
@@ -154,10 +154,10 @@ This defines the input type for our `CreateNote` method. It has two fields: `tit
     
 And this...
 ```protobuf
-`message Note {
-  string id = 1;
-  string title = 2;
-  string content = 3;
+message Note {
+    string id = 1;
+    string title = 2;
+    string content = 3;
 }
 ```
 ... is the response type, which includes `id` (a string representing the unique note ID, with **tag 1**), `title` (for the note title with **tag 2**) and `content` (for the note content with **tag 3**).
