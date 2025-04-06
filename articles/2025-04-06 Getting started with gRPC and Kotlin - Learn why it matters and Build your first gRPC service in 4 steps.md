@@ -1,5 +1,5 @@
 
-# Getting started with gRPC and Kotlin: Build your first gRPC service and learn why it matters 
+# Getting started with gRPC and Kotlin: Build your first gRPC service in 4 steps
 
 This is the first article in a hands-on series where we'll explore how to build **gRPC** services using **Kotlin**. The series is designed to help you understand not only the technical how-to, but also the design choices behind **Protocol Buffers** and **gRPC**. We'll start simple and gradually introduce more advanced concepts as we go.
 
