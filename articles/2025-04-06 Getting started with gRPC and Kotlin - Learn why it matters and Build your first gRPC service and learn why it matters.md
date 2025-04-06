@@ -94,18 +94,18 @@ option java_package = "com.fugisawa.grpc.noteservice";
 option java_multiple_files = true;
 
 service NoteService { 
-	rpc CreateNote (CreateNoteRequest) returns (Note); 
+    rpc CreateNote (CreateNoteRequest) returns (Note); 
 }
 
 message CreateNoteRequest { 
-	string title = 1; 
-	string content = 2;
+    string title = 1; 
+    string content = 2;
 }
 
 message Note { 
-	string id = 1; 
-	string title = 2; 
-	string content = 3; 
+    string id = 1; 
+    string title = 2; 
+    string content = 3; 
 }
 ```
 
@@ -180,45 +180,45 @@ The next step is to generate Kotlin code from our `.proto` file. There are two m
 For compiling our Protobuf definitions to Kotlin code, we can use a Gradle plugin, which makes our life easier. Add the Protobuf plugin and dependencies to your `build.gradle.kts`. Remember we also need to add the Kotlin Coroutines dependency:
 ```kotlin
 plugins { 
-	kotlin("jvm") version "1.9.22" 
-	id("com.google.protobuf") version "0.9.4" 
+    kotlin("jvm") version "1.9.22" 
+    id("com.google.protobuf") version "0.9.4" 
 }
 
 repositories { 
-	mavenCentral() 
+    mavenCentral() 
 }
 
 dependencies { 
-	implementation("io.grpc:grpc-kotlin-stub:1.4.1")  
-	implementation("io.grpc:grpc-netty-shaded:1.71.0")  
-	implementation("io.grpc:grpc-protobuf:1.71.0")
-	implementation("com.google.protobuf:protobuf-kotlin:4.30.2")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
+    implementation("io.grpc:grpc-kotlin-stub:1.4.1")  
+    implementation("io.grpc:grpc-netty-shaded:1.71.0")  
+    implementation("io.grpc:grpc-protobuf:1.71.0")
+    implementation("com.google.protobuf:protobuf-kotlin:4.30.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
 }
 
 protobuf {  
-	protoc {  
-		artifact = "com.google.protobuf:protoc:4.30.2"  
-	}  
-	plugins {  
-		create("grpc") {  
-			artifact = "io.grpc:protoc-gen-grpc-java:1.71.0"  
-		}  
-		create("grpckt") {  
-			artifact = "io.grpc:protoc-gen-grpc-kotlin:1.4.1:jdk8@jar"  
-		}  
-	}  
-	generateProtoTasks {  
-		all().forEach {  
-			it.builtins {  
-				create("kotlin")  
-			}  
-			it.plugins {  
-				id("grpc")  
-				id("grpckt")  
-			}  
-		} 
-	}
+    protoc {  
+        artifact = "com.google.protobuf:protoc:4.30.2"  
+    }  
+    plugins {  
+        create("grpc") {  
+            artifact = "io.grpc:protoc-gen-grpc-java:1.71.0"  
+        }  
+        create("grpckt") {  
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.4.1:jdk8@jar"  
+        }  
+    }  
+    generateProtoTasks {  
+        all().forEach {  
+            it.builtins {  
+                create("kotlin")  
+            }  
+            it.plugins {  
+                id("grpc")  
+                id("grpckt")  
+            }  
+        } 
+    }
 }
 ```
 *(Consider using local String variables for dependency version numbers. I didn't do it here for simplicity.)*
@@ -236,10 +236,10 @@ This generates Kotlin and gRPC code under `build/generated`.
 You can also generate code manually:
 ```bash
 protoc  
-	--proto_path=src/main/proto  
-	--kotlin_out=build/generated/source/proto/main/kotlin  
-	--grpc-kotlin_out=build/generated/source/proto/main/kotlin  
-	note_service.proto
+    --proto_path=src/main/proto  
+    --kotlin_out=build/generated/source/proto/main/kotlin  
+    --grpc-kotlin_out=build/generated/source/proto/main/kotlin  
+    note_service.proto
 ```
 You'll need the `protoc` binary and the `protoc-gen-grpc-kotlin` plugin [installed](https://protobuf.dev/installation/) on your system.
 
@@ -256,15 +256,15 @@ import com.fugisawa.grpc.noteservice.note
 import java.util.*  
   
 class NoteServiceImpl : NoteServiceGrpcKt.NoteServiceCoroutineImplBase() {  
-	override suspend fun createNote(request: CreateNoteRequest): Note {  
-		// Here, you will implement your note creation logic, persist the new note etc.  
-		// Let's just generate dummy note, for this example:  val newNoteId = UUID.randomUUID().toString()  
-		return note {   
-			id = newNoteId  
-			title = request.title  
-			content = request.content  
-		}  
-	}  
+    override suspend fun createNote(request: CreateNoteRequest): Note {  
+        // Here, you will implement your note creation logic, persist the new note etc.  
+        // Let's just generate dummy note, for this example:  val newNoteId = UUID.randomUUID().toString()  
+        return note {   
+            id = newNoteId  
+            title = request.title  
+            content = request.content  
+        }  
+    }  
 }
 ```
 In this code, what we are doing is:
@@ -280,14 +280,14 @@ import io.grpc.Server
 import io.grpc.ServerBuilder  
   
 fun main() {  
-	val server: Server = ServerBuilder  
-		.forPort(50051)  
-		.addService(NoteServiceImpl())  
-		.build()  
+    val server: Server = ServerBuilder  
+        .forPort(50051)  
+        .addService(NoteServiceImpl())  
+        .build()  
   
-	  server.start()  
-	  println("Server started on port 50051")  
-	  server.awaitTermination()  
+      server.start()  
+      println("Server started on port 50051")  
+      server.awaitTermination()  
 }
 ```
 That's all we need to get a Kotlin gRPC server running.
@@ -307,22 +307,22 @@ import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.runBlocking  
   
 fun main() = runBlocking {  
-	val channel =  
-		ManagedChannelBuilder  
-			.forAddress("localhost", 50051)  
-			.usePlaintext()  
-			.build()  
+    val channel =  
+        ManagedChannelBuilder  
+            .forAddress("localhost", 50051)  
+            .usePlaintext()  
+            .build()  
 
-	val stub = NoteServiceCoroutineStub(channel)  
+    val stub = NoteServiceCoroutineStub(channel)  
 
-	val request = createNoteRequest {  
-		title = "My first note"  
-		content = "This is my first note created with gRPC!"  
-	}  
+    val request = createNoteRequest {  
+        title = "My first note"  
+        content = "This is my first note created with gRPC!"  
+    }  
 
-	val note = stub.createNote(request)  
+    val note = stub.createNote(request)  
 
-	println("Note created: ${note.id} - ${note.title}")  
+    println("Note created: ${note.id} - ${note.title}")  
 }
 ```
 
