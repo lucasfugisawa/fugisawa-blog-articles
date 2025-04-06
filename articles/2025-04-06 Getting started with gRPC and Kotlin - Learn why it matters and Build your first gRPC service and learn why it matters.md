@@ -358,7 +358,7 @@ Notice how simple and idiomatic calling a gRPC service can be in Kotlin:
 - Messages are constructed using type-safe Kotlin builders.
 - Communication is binary, efficient, and strongly typed.
 
-## How to Run the Server and Client
+## How to run the Server and the Client
 
 We're building both server and client in the same Gradle project, but typically they would be two separate applications. In this article, we will use them by starting our application with different entry points.
 - To run the server, execute `Server.main()`.
