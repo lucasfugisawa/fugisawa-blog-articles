@@ -44,7 +44,7 @@ string content = 2;
 ```
 If a client omits this field entirely when calling a RPC, and another client sends an empty string (`""`), you won't be able to tell them apart. This matters in scenarios like PATCH operations, where *"clear the content"* (or change it to zero) and *"leave it untouched"* are very different instructions. To fix this, we have a few tools.
 
-### Using `optional` in proto3 (since v3.15)
+### Using `optional` in proto3 (since v3.15) to enable presence tracking
 
 As of version 3.15, proto3 reintroduces the `optional` keyword to track whether a [scalar](https://squidfunk.github.io/protobluff/guide/scalar-types/) (i.e., numbers, enums and strings) field was explicitly set.
 
@@ -66,7 +66,7 @@ if (note.hasContent()) {
 ```
 This is particularly useful for implementing update operations where presence matters — for instance, distinguishing between *"remove the content"* (or change it to zero) and *"leave it unchanged"*.
 
-### Wrapper types: presence for scalars
+### Using wrapper types to enable presence tracking for scalars
 
 Protobuf < 3.15 doesn't support presence tracking on primitive fields (like `int32`, `bool`, etc.) by default. To track presence for those, you can use **Google's wrapper types**, which wrap a primitive inside a message.
 
