@@ -253,11 +253,9 @@ This approach gives you:
 - Human-readable messages.
 - Extensibility with metadata.
 
-*The error handling code is not yet available in the provided source code, and should be added soon.*
-
 ## Implementation summary: what changed from the previous article?
 
-As in the previous articles, all code is available in individual branches of the [note-service-kotlin-gprc](https://github.com/lucasfugisawa/note-service-kotlin-gprc) repository. For this article, you can check the [`article4-streaming`](https://github.com/lucasfugisawa/note-service-kotlin-gprc/tree/article4-streaming) branch.
+As in the previous articles, all code is available in individual branches of the [note-service-kotlin-gprc](https://github.com/lucasfugisawa/note-service-kotlin-gprc) repository. For this article, you can check the [`article4-streaming`](https://github.com/lucasfugisawa/note-service-kotlin-gprc/tree/article4-streaming) branch. *The error handling code is not yet available in the provided source code, and should be added soon.*
 
 Here's a quick summary of what's new:
 - **Protobuf schema**:
