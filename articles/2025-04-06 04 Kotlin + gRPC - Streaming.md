@@ -258,7 +258,7 @@ As in the previous articles, all code is available in individual branches of the
 
 Here's a quick summary of what's new:
 - **Protobuf schema**:
-    - Added `StreamNotesByTag`, `CreateNotes`, and `Chat` RPCs for server, client, and bidirectional streaming.
+    - Added `StreamNotesByTag`, `CreateNotes`, and `NoteCollab` RPCs for server, client, and bidirectional streaming.
 - **Server implementation**:
     - Implemented all three streaming methods using Kotlin `Flow`.
 - **Client implementation**:
