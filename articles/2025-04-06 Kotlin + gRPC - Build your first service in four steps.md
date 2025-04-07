@@ -375,7 +375,7 @@ In this article, we covered:
 - How to generate Kotlin code using Gradle and `protoc`.
 - How to implement and run a gRPC server and client in Kotlin.
 
-This article is a bit long, as it includes an introduction to the main concepts and the setup of an example project. In the upcoming articles, which will be more concise, we'll dig deeper into optional fields, field/argument presence detection, and the subtle but important differences in how Protocol Buffers handle missing or default values. That's where things get interesting and real-world.
+In the upcoming articles, we'll dig deeper into `optional` fields, field/argument presence detection, `repeat`, `map` and `oneof` fields, and the subtle but important differences in how Protocol Buffers handle missing or default values. That's where things get interesting and real-world.
 
 --- 
 
