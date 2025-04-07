@@ -2,22 +2,22 @@
 
 In the previous (first) article of this series, we introduced gRPC and Protocol Buffers by building a minimal Kotlin gRPC service: a simple NoteService that allowed creating and retrieving notes.
 
-Now that we'    ve covered the fundamentals and the codebase setup, it's time to dig a bit deeper into the backbone of any gRPC application: your schema.
+Now that we've covered the fundamentals and the codebase setup, it's time to dig a bit deeper into the backbone of any gRPC application: your schema.
 
-Protobuf is a schema-first system. Every API you design begins with a `.proto` file, and that file _is_ your contract. The way you design your fields (how you think about presence, defaults, repetition, optionality, maps, enums, and even deletions) will determine how flexible and resilient your API is as it evolves. *Other more architecture-level aspects (such as security, decoupling the domain model from the transport model, etc.) also affect your gRPC API resilience. However, we'    ll look at these later.*
+Protobuf is a schema-first system. Every API you design begins with a `.proto` file, and that file _is_ your contract. The way you design your fields (how you think about presence, defaults, repetition, optionality, maps, enums, and even deletions) will determine how flexible and resilient your API is as it evolves. *Other more architecture-level aspects (such as security, decoupling the domain model from the transport model, etc.) also affect your gRPC API resilience. However, we'll look at these later.*
 
 This article focuses on the essential building blocks of schema design:
 - Understanding field presence and default values.
 - Using `optional`, `repeated`, `map`, `enum`, and `oneof` effectively.
 - Applying best practices for evolving your Protobuf definitions without breaking clients.
 
-Along the way, we'    ll evolve our NoteService use case with new requirements, applying these concepts in a real-world context.
+Along the way, we'll evolve our NoteService use case with new requirements, applying these concepts in a real-world context.
 
 ## Evolving our use case: Notes with metadata and updates
 
 In the previous article, a note had only a `title` and `content`, and a unique `id` assigned on creation. That was fine as a starting point, but real-world applications rarely stay that simple.
 
-Let'    s say our team now needs the following:
+Let's say our team now needs the following:
 
 - Notes should support optional **tags**, stored as a list.
 - Users should be able to attach **custom metadata** (like a map of key/value labels).
@@ -25,7 +25,7 @@ Let'    s say our team now needs the following:
 - We want to support **partial updates**, where clients can update only specific fields.
 - Notes may support **multiple attachment types**, but only one per note.
  
-This isn'    t just scope creep — it'    s a chance to apply schema design best practices and show how to evolve your API safely and clearly.
+This isn't just scope creep — it's a chance to apply schema design best practices and show how to evolve your API safely and clearly.
 
 ## Understanding field presence and default values
 
@@ -36,15 +36,15 @@ In Protobuf, every field has a default value based on its type. For example:
 - `string` defaults to `""`
 - `bool` defaults to `false`
 
-But here'    s the tricky part: **unless you explicitly tell Protobuf to track field presence, you cannot distinguish between "unset" and "default"**.
+But here's the tricky part: **unless you explicitly tell Protobuf to track field presence, you cannot distinguish between "unset" and "default"**.
 
 Imagine this field:
 ```protobuf
 string content = 2;
 ```
-If a client omits this field entirely when calling a RPC, and another client sends an empty string (`""`), you won'    t be able to tell them apart. This matters in scenarios like PATCH operations, where *"clear the content"* and *"leave it untouched"* are very different instructions. To fix this, we have a few tools.
+If a client omits this field entirely when calling a RPC, and another client sends an empty string (`""`), you won't be able to tell them apart. This matters in scenarios like PATCH operations, where *"clear the content"* (or change it to zero) and *"leave it untouched"* are very different instructions. To fix this, we have a few tools.
 
-## Using `optional` in proto3 (since v3.15)
+### Using `optional` in proto3 (since v3.15)
 
 As of version 3.15, proto3 reintroduces the `optional` keyword to track whether a [scalar](https://squidfunk.github.io/protobluff/guide/scalar-types/) (i.e., numbers, enums and strings) field was explicitly set.
 
@@ -64,13 +64,13 @@ if (note.hasContent()) {
 	// Field was not set 
 }` 
 ```
-This is particularly useful for implementing update operations where presence matters — for instance, distinguishing between *"remove the content"* and *"leave it unchanged"*.
+This is particularly useful for implementing update operations where presence matters — for instance, distinguishing between *"remove the content"* (or change it to zero) and *"leave it unchanged"*.
 
-## Wrapper types: presence for scalars
+### Wrapper types: presence for scalars
 
-Protobuf < 3.15 doesn'    t support presence tracking on primitive fields (like `int32`, `bool`, etc.) by default. To track presence for those, you can use **Google'    s wrapper types**, which wrap a primitive inside a message.
+Protobuf < 3.15 doesn't support presence tracking on primitive fields (like `int32`, `bool`, etc.) by default. To track presence for those, you can use **Google's wrapper types**, which wrap a primitive inside a message.
 
-Here'    s how you define them:
+Here's how you define them:
 
 ```protobuf
 import "google/protobuf/wrappers.proto";
@@ -93,7 +93,7 @@ Because optional was reintroduced to Protobuf 3.15+, wrappers are generally obso
 
 ## Repeated fields: modeling lists
 
-Let'    s say we want to support tags for a note. This is a perfect use case for `repeated` fields:
+Let's say we want to support tags for a note. This is a perfect use case for `repeated` fields:
 
 ```protobuf
 message Note {
@@ -101,7 +101,7 @@ message Note {
 }
 ```
 
-Repeated fields always default to empty lists. On the Kotlin side, you'    ll work with them as immutable lists:
+Repeated fields always default to empty lists. On the Kotlin side, you'll work with them as immutable lists:
 
 ```kotlin
 val tags: List<String> = note.tagsList
@@ -119,7 +119,7 @@ Repeated fields are safe to evolve, so you can add them any time without breakin
 
 ## Using `map` for representing arbitrary key-value metadata
 
-Let'    s say we want to support storing user-defined metadata on a note. Think of labels like `"project" -> "gRPC"` or `"priority" -> "high"`.
+Let's say we want to support storing user-defined metadata on a note. Think of labels like `"project" -> "gRPC"` or `"priority" -> "high"`.
 
 ```protobuf
 message Note {
@@ -137,12 +137,12 @@ Under the hood, a `map` is just a `repeated` field of key/value pairs, but Proto
 
 Some caveats you should considering when using maps are:
 - Map keys must be scalars (string, int, etc.).
-- You can'    t track presence of individual keys — you either have the key or you don'    t.
+- You can't track presence of individual keys — you either have the key or you don't.
 - Map order is not guaranteed.
 
 ## Modeling finite sets with `enum`: 
 
-Let'    s model a note'    s status. We might want to distinguish between active and archived notes:
+Let's model a note's status. We might want to distinguish between active and archived notes:
 
 ```protobuf
 enum NoteStatus {
@@ -169,11 +169,11 @@ when (note.status) {
 }
 ```
 
-This is critical for **forward compatibility**: if a newer server adds a new status (`DELETED = 3`), older clients won'    t crash — they'    ll get `UNRECOGNIZED`.
+This is critical for **forward compatibility**: if a newer server adds a new status (`DELETED = 3`), older clients won't crash — they'll get `UNRECOGNIZED`.
 
 ## Handling mutually exclusive fields with `oneof`:
 
-Let'    s say users can attach either a file or a URL to a note, but never both.
+Let's say users can attach either a file or a URL to a note, but never both.
 
 ```protobuf
 message Attachment {
@@ -205,10 +205,10 @@ As your service evolves, you'll need to change your schema, but not all changes 
 
 ###  Safe changes
 
-- ✅ **Adding new fields (with new tags)**: This is safe and common. Clients that don'    t know the new field simply ignore it. Just be sure to use a unique tag that hasn'    t been used before.
-- ✅ **Adding new enum values (with new tags)**: This is also safe. Clients that don'    t recognize the new value will treat it as `UNRECOGNIZED`, allowing fallback handling.
-- ⚠️ **Changing field names**: The name of the field doesn'    t affect the wire format. Only the tag matters. However, generated code will change, which may break client code unless they recompile. Safe for the protocol, but not always for your code.
-- ⚠️ **Changing default behavior**: While proto3 does not support custom default values in `.proto` files, you can change how your app behaves when a field is unset. This is safe as long as you don'    t rely on transmitted defaults.
+- ✅ **Adding new fields (with new tags)**: This is safe and common. Clients that don't know the new field simply ignore it. Just be sure to use a unique tag that hasn't been used before.
+- ✅ **Adding new enum values (with new tags)**: This is also safe. Clients that don't recognize the new value will treat it as `UNRECOGNIZED`, allowing fallback handling.
+- ⚠️ **Changing field names**: The name of the field doesn't affect the wire format. Only the tag matters. However, generated code will change, which may break client code unless they recompile. Safe for the protocol, but not always for your code.
+- ⚠️ **Changing default behavior**: While proto3 does not support custom default values in `.proto` files, you can change how your app behaves when a field is unset. This is safe as long as you don't rely on transmitted defaults.
 
 ### Breaking changes
 
@@ -262,9 +262,9 @@ In the article, I highlighted only parts of the code that were relevant to under
  
 ## Final thoughts
 
-Designing Protobuf schemas is more than just writing `.proto` files. It'    s about thinking deeply about how your API will evolve, how your data behaves over the wire, and how clients will interpret what they receive.
+Designing Protobuf schemas is more than just writing `.proto` files. It's about thinking deeply about how your API will evolve, how your data behaves over the wire, and how clients will interpret what they receive.
 
-In this article, we'    ve explored:
+In this article, we've explored:
 - Why field presence matters, and how to track it.
 - How to use optional fields, wrapper types, repeated values, maps, and enums effectively.
 - How to model exclusive choices using `oneof`.
