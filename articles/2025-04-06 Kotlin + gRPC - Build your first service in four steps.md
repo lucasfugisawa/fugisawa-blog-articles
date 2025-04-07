@@ -76,7 +76,7 @@ note-service-kotlin-gprc/
 ```
 The source code for the scope of each article will be made available in individual branches at the [note-service-kotlin-gprc](https://github.com/lucasfugisawa/note-service-kotlin-gprc) repository, while `HEAD` on the `main` branch will accommodate the latest working version.
 
-The speific branch for this article is [article1-first-service](https://github.com/lucasfugisawa/note-service-kotlin-gprc/tree/article1-first-service).
+The specific branch for this article is [article1-first-service](https://github.com/lucasfugisawa/note-service-kotlin-gprc/tree/article1-first-service).
 
 ## Step 1: Writing your first `.proto` file
 
