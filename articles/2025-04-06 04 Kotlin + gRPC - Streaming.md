@@ -1,19 +1,17 @@
-
-
 # Kotlin + gRPC: Streaming, Deadlines, and Structured Error Handling
 
 In the previous articles of this series, we built a solid foundation: from setting up a gRPC service in Kotlin, to mastering schema design, and writing idiomatic, expressive code with Protobuf and Kotlin DSLs.
 
-Now, we'    re ready to go beyond the basics into features that power real-time, reactive, and resilient APIs.
+Now, we're ready to go beyond the basics into features that power real-time, reactive, and resilient APIs.
 
-In this article, we'    ll explore:
+In this article, we'll explore:
 - How **gRPC streaming** works, and how to use **Kotlin coroutines and Flow** idiomatically.
 - How to handle **deadlines and cancellations**.
 - How to return and interpret **structured errors** using gRPC status codes and custom metadata.
 
  These features are essential when building robust and production-grade services.
 
-## When request/response isn'    t enough
+## When request/response isn't enough
 
 Until now, our gRPC calls have all followed a **unary** pattern, where the client sends a single request and the server replies with a single response.
 
@@ -24,11 +22,11 @@ There are three types of gRPC streaming:
 - **Client streaming**: the client sends a stream of requests and gets a single response.
 - **Bidirectional streaming**: both client and server send streams of messages.
 
-Let'    s see how each one works in practice using **Kotlin'    s `Flow`** and coroutines.
+Let's see how each one works in practice using **Kotlin's `Flow`** and coroutines.
 
 ## Server Streaming: one request, many responses
 
-Imagine we want to support **live updates**: the client subscribes to notes with a certain tag, and the server streams back matching notes as they'    re created.
+Imagine we want to support **live updates**: the client subscribes to notes with a certain tag, and the server streams back matching notes as they're created.
 
 First, lets update the our `.proto` file and add that new RPC:
 ```protobuf
@@ -73,7 +71,7 @@ This is a powerful pattern for pushing real-time updates to clients, and thanks 
 
 ## Client Streaming: multiple requests, one response
 
-Let'    s say a client wants to **send a batch of notes** in a single stream, and the server replies with a summary (e.g., how many were saved).
+Let's say a client wants to **send a batch of notes** in a single stream, and the server replies with a summary (e.g., how many were saved).
 
 Let's add the `.proto` definitions for that:
 
@@ -198,7 +196,7 @@ This makes it easier to free up resources when clients disconnect.
 
 ## Structured error handling
 
-By default, when something goes wrong in gRPC, you'    ll get a `StatusRuntimeException` with a gRPC status code. For example:
+By default, when something goes wrong in gRPC, you'll get a `StatusRuntimeException` with a gRPC status code. For example:
 
 ```kotlin
 throw Status.NOT_FOUND
@@ -215,7 +213,7 @@ try {
 }
 ```
 
-But for production systems, you'    ll often want **structured error responses**, with application-level codes, details, or even localized messages. To achieve this, use **gRPC error metadata** with `StatusProto`.
+But for production systems, you'll often want **structured error responses**, with application-level codes, details, or even localized messages. To achieve this, use **gRPC error metadata** with `StatusProto`.
 
 For example, let's define an error details message in `.proto`:
 
@@ -258,7 +256,7 @@ This approach gives you:
 
 As in the previous articles, all code is available in individual branches of the [note-service-kotlin-gprc](https://github.com/lucasfugisawa/note-service-kotlin-gprc) repository. For this article, you can check the [`article4-streaming`](https://github.com/lucasfugisawa/note-service-kotlin-gprc/tree/article4-streaming) branch.
 
-Here'    s a quick summary of what'    s new:
+Here's a quick summary of what's new:
 - **Protobuf schema**:
     - Added `StreamNotesByTag`, `CreateNotes`, and `Chat` RPCs for server, client, and bidirectional streaming.
 - **Server implementation**:
