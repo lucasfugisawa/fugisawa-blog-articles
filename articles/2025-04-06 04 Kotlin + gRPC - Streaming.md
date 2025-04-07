@@ -130,9 +130,12 @@ Now, we can use that new definition to implement the logic. To keep this simple,
 override fun noteCollab(requests: Flow<Note>): Flow<Note> = flow {
     requests.collect { receivedNote ->
         println("Received from ${receivedNote.title}: ${receivedNote.content}")
-        emit(note {
-            title = "From server: ${receivedNote.title}" content = "${receivedNote.content}"
-        })
+        emit(
+            note {
+                title = "From server: ${receivedNote.title}"
+                content = "${receivedNote.content}"
+            }
+        )
     }
 }
 ```
