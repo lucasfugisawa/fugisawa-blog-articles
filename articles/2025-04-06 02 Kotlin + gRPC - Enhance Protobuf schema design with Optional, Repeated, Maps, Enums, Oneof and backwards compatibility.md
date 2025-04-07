@@ -62,7 +62,7 @@ if (note.hasContent()) {
 	// Client explicitly set the field  val content = note.content
 } else { 
 	// Field was not set 
-}` 
+}
 ```
 This is particularly useful for implementing update operations where presence matters — for instance, distinguishing between *"remove the content"* (or change it to zero) and *"leave it unchanged"*.
 
