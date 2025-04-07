@@ -113,7 +113,7 @@ Let's break this down:
 
 ### `syntax = "proto3";`
 
-This declares that we're using **[proto3](https://protobuf.dev/programming-guides/proto3/)**, the most recent version of 'the Protocol Buffers language. It simplifies the syntax and sets some defaults (like making fields optional unless marked otherwise).
+This declares that we're using **[proto3](https://protobuf.dev/programming-guides/proto3/)**, the most recent version of 'the Protocol Buffers language. It simplifies the syntax and sets some defaults (like making fields optional).
 
 ### `package note;`
 
