@@ -237,7 +237,7 @@ Here is a quick summary of how Protobuf types map to Kotlin:
 | `oneof`                            | Field + `.case` enum          | Only one field set at a time                  |
 
 
-## Implementation summary: what changed from article 1?
+## Implementation summary: what changed from the previous article?
 
 As I mentioned in the previous article, the source code for the scope of each article will be made available in individual branches at the  [note-service-kotlin-gprc](https://github.com/lucasfugisawa/note-service-kotlin-gprc)  repository, while  `HEAD`  on the  `main`  branch will accommodate the latest working version.
 
