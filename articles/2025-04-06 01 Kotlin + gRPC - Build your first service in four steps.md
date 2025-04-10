@@ -367,7 +367,7 @@ We're building both server and client in the same Gradle project, but typically 
 - To run the server, execute `Server.main()`.
 - In a second terminal (or a new IntelliJ run configuration), run `Client.main()`.
 
-# Final thoughts
+## Final thoughts
 
 In this article, we covered:
 - What gRPC and Protobuf are, and why they matter.
