@@ -4,10 +4,11 @@
 This is the first article in a hands-on series where we'll explore how to build **gRPC** services using **Kotlin**. The series is designed to help you understand not only the technical how-to, but also the design choices behind **Protocol Buffers** and **gRPC**. We'll start simple and gradually introduce more advanced concepts as we go.
 
 Here is what you can expect from the upcoming articles:
-- In the next article, we will explore field **presence**, **optional** fields, and how to **evolve your API safely**.
-- Then, we will expand our model to cover **repeated fields** and **nested messages**.
-- Finally, we will explore gRPC streaming, how to build APIs that go beyond request/response, using **Kotlin coroutines** and **flows**.
-    
+- In the next article, we will explore field presence, repeated, maps, enums, oneOf, and how to evolve your API safely.
+- Then, we will expand our model to cover nesting, composition, validations, and idiomatic builder DSL.
+- Later, we will explore gRPC streaming to build APIs that go beyond request/response, using Kotlin coroutines and flows. We'll also explore deadlines and error handling.
+- Finally, as a bonus, we'll go over topics you should focus on if you need to implement gRPC for a production environment, like tooling, CI/CD and Architectural Practices.
+
 By the end of the series, you will have a solid understanding of gRPC in Kotlin, and a real working service you can build upon.
 
 If you've worked with REST APIs, you know they've become the standard way to build and expose web services. They're simple, flexible, and have broad tooling support. But when services need to communicate with each other efficiently, especially in a distributed or high-performance system, gRPC is often a better choice.
