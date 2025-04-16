@@ -25,11 +25,11 @@ Let's say our team now needs the following:
 - We want to support **partial updates**, where clients can update only specific fields.
 - Notes may support **multiple attachment types**, but only one per note.
  
-This isn't just scope creep — it's a chance to apply schema design best practices and show how to evolve your API safely and clearly.
+This isn't just scope creep. It's a chance to apply schema design best practices and show how to evolve your API safely and clearly.
 
 ## Understanding field presence and default values
 
-One of the first challenges developers face when using Protobuf is grasping how it handles missing vs. default values.
+One of the developers' first challenges when using Protobuf is grasping how it handles missing vs. default values.
 
 In Protobuf, every field has a default value based on its type. For example:
 - `int32` defaults to `0`
@@ -64,7 +64,7 @@ if (note.hasContent()) {
 	// Field was not set 
 }
 ```
-This is particularly useful for implementing update operations where presence matters — for instance, distinguishing between *"remove the content"* (or change it to zero) and *"leave it unchanged"*.
+This is particularly useful for implementing update operations where presence matters. For instance, distinguishing between *"remove the content"* (or change it to zero) and *"leave it unchanged"*.
 
 ### Using wrapper types to enable presence tracking for scalars
 
@@ -135,7 +135,7 @@ val metadata: Map<String, String> = note.metadataMap
 
 Under the hood, a `map` is just a `repeated` field of key/value pairs, but Protobuf provides syntactic sugar for it.
 
-Some caveats you should considering when using maps are:
+Some caveats you should consider when using maps are:
 - Map keys must be scalars (string, int, etc.).
 - You can't track presence of individual keys — you either have the key or you don't.
 - Map order is not guaranteed.
@@ -237,7 +237,7 @@ Here is a quick summary of how Protobuf types map to Kotlin:
 | `oneof`                            | Field + `.case` enum          | Only one field set at a time                  |
 
 
-## Implementation summary: what changed from the previous article?
+## Implementation summary: What changed from the previous article?
 
 As I mentioned in the previous article, the source code for the scope of each article will be made available in individual branches at the  [note-service-kotlin-gprc](https://github.com/lucasfugisawa/note-service-kotlin-gprc)  repository, while  `HEAD`  on the  `main`  branch will accommodate the latest working version.
 
